@@ -1,0 +1,23 @@
+java_library(
+    name = "build",
+    srcs = glob(["src/main/java/**/*.java"]),
+    resources = glob(["src/main/resources/*.*"]),
+    visibility = ["//visibility:public"],
+    deps = [
+
+    ],
+)
+
+java_test(
+    name = "test",
+    srcs = ["src/test/java/com/hellotest/HelloTestMainTest.java"],
+    test_class = "com.hellotest.HelloTestMainTest",
+    deps = [
+        ":build",
+    ],
+    runtime_deps = [
+        "@maven//:junit_junit",
+    ],
+    size = "small",
+    resources = glob(["src/test/resources/*.*"]),
+)

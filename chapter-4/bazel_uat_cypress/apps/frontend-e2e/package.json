@@ -1,0 +1,4 @@
+{
+  "name": "frontend-e2e",
+  "description": "For some reason running pnpm cypress needs this file to exist"
+}

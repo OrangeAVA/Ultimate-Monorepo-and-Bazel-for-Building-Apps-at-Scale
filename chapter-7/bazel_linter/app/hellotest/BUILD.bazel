@@ -1,0 +1,52 @@
+load("//tools/rules:junit4_test_suite.bzl", "junit4_test_suite")
+load("@rules_pmd//pmd:defs.bzl", "pmd_test")
+
+java_library(
+    name = "build",
+    srcs = glob([
+        "src/main/java/**/*.java",
+        "src/test/java/**/*Benchmark.java",
+    ]),
+    resources = glob(["src/main/resources/*.*"]),
+    visibility = ["//visibility:public"],
+    deps = [
+        "@maven//:org_openjdk_jmh_jmh_core",
+    ],
+    plugins = [":jmh_annotation_processor"],
+)
+
+pmd_test(
+    name = "pmd_analysis",
+    srcs = glob(["src/main/java/**/*.java"]),
+    report_format = "text",
+    rulesets = ["pmd_rules.xml"],
+)
+
+junit4_test_suite(
+    name = "test",
+    srcs = glob(["src/test/java/**/*.java"]),
+    deps = [
+        ":build",
+        "@maven//:org_openjdk_jmh_jmh_core",
+    ],
+    runtime_deps = [
+        "@maven//:junit_junit",
+    ],
+    size = "small",
+    resources = glob(["src/test/resources/*.*"]),
+)
+
+java_binary(
+    name = "benchmark",
+    main_class = "org.openjdk.jmh.Main",
+    runtime_deps = [":build"],
+    plugins = [":jmh_annotation_processor"],
+)
+
+java_plugin(
+    name = "jmh_annotation_processor",
+    deps = ["@maven//:org_openjdk_jmh_jmh_generator_annprocess"],
+    processor_class = "org.openjdk.jmh.generators.BenchmarkProcessor",
+    visibility = ["//visibility:private"],
+)
+

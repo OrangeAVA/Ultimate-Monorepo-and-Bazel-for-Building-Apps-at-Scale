@@ -1,0 +1,16 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "sourceMap": false,
+    "allowJs": true,
+    "types": ["cypress", "node", "@testing-library/cypress"]
+  },
+  "ts-node": {
+    "ignore": [
+      "(?:^|/)node_modules/",
+      "(?:^|/)register.js",
+      "(?:^|/)fs.js"
+    ]
+  },
+  "include": ["**/*.ts"]
+}

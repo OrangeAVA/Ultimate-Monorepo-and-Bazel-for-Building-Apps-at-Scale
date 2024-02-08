@@ -1,0 +1,10 @@
+node_modules
+bazel-bin
+bazel-out
+bazel-testlogs
+.ijwb
+.bazelignore
+.eclipse
+genhtml
+app/node_modules
+common/node_modules

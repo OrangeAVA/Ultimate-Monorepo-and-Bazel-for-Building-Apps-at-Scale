@@ -1,0 +1,6 @@
+genrule(
+    name = "convert_to_uppercase",
+    srcs = ["input.txt"],
+    outs = ["output.uppercase.txt"],
+    cmd = "tr '[:lower:]' '[:upper:]' < $(SRCS) > $(OUTS)",
+)

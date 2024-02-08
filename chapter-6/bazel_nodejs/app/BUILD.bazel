@@ -1,0 +1,25 @@
+load("@aspect_rules_swc//swc:defs.bzl", "swc")
+load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
+load("@bazel_skylib//lib:partial.bzl", "partial")
+
+ts_project(
+    name = "app",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = ["**/*.test.ts"],
+    ),
+    declaration = True,
+    transpiler = partial.make(
+        swc,
+        swcrc = "//:swcrc",
+    ),
+    tsconfig = "//:tsconfig",
+    deps = [
+        "//common:common",
+        "//:node_modules/@bazel_nodejs/common",
+        "//:node_modules/express",
+        "//:node_modules/@types/express",
+        "//:node_modules/@types/node",
+        # Other dependencies
+    ],
+)

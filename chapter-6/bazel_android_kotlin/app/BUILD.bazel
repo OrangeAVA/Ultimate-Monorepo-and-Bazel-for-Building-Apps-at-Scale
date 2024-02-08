@@ -1,0 +1,45 @@
+load("@rules_kotlin//kotlin:android.bzl", "kt_android_library")
+
+android_binary(
+    name = "app",
+    manifest = "src/main/AndroidManifest.xml",
+    manifest_values = {
+        "versionCode": "1",
+        "versionName": "1.0",
+        "minSdkVersion": "21",
+        "targetSdkVersion": "30",
+    },
+    deps = [
+        ":res",
+        ":build_kt",
+    ],
+)
+
+android_library(
+    name = "res",
+    manifest = "src/main/manifest/AndroidManifest.xml",
+    custom_package = "com.example.myapplication",
+    resource_files = glob(["src/main/res/**"]),
+    visibility = ["//visibility:public"],
+    deps = [
+        "@maven//:com_google_android_material_material",
+        "@maven//:androidx_constraintlayout_constraintlayout",
+        "@maven//:androidx_navigation_navigation_ui_ktx",
+        "@maven//:androidx_navigation_navigation_fragment_ktx",
+    ]
+)
+
+kt_android_library(
+    name = "build_kt",
+    srcs = glob(["src/main/java/**/*.kt"]),
+    deps = [
+        "//app:res",
+        "//common/dashboard",
+        "//common/home",
+        "//common/notifications",
+        "@maven//:androidx_appcompat_appcompat",
+        "@maven//:androidx_navigation_navigation_fragment_ktx",
+        "@maven//:androidx_navigation_navigation_ui_ktx",
+    ],
+    visibility = ["//app:__subpackages__"],
+)

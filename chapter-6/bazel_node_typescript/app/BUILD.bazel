@@ -1,0 +1,57 @@
+load("@aspect_rules_swc//swc:defs.bzl", "swc")
+load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
+load("@bazel_skylib//lib:partial.bzl", "partial")
+load("@aspect_rules_jest//jest:defs.bzl", "jest_test")
+load("@aspect_rules_js//js:defs.bzl", "js_binary")
+
+ts_project(
+    name = "app",
+    srcs = glob(
+        include = ["*.ts"],
+        exclude = ["*.test.ts"],
+    ),
+    declaration = True,
+    transpiler = partial.make(
+        swc,
+        swcrc = "//:swcrc",
+    ),
+    tsconfig = "//:tsconfig",
+    deps = [
+        "//:node_modules/@org/common",
+        "//:node_modules/@types/express",
+        "//:node_modules/@types/node",
+        "//:node_modules/express",
+    ],
+)
+
+ts_project(
+    name = "app_test",
+    srcs = glob(["*.test.ts"]),
+    declaration = True,
+    transpiler = partial.make(
+        swc,
+        swcrc = "//:swcrc",
+    ),
+    tsconfig = "//:tsconfig",
+    deps = [
+        ":app",
+        "//:node_modules/@types/jest",
+        "//:node_modules/@types/supertest",
+        "//:node_modules/supertest",
+    ],
+)
+
+jest_test(
+    name = "test",
+    config = "//:jest.config",
+    data = [":app_test"],
+    node_modules = "//:node_modules",
+)
+
+js_binary(
+    name = "main",
+    data = [":app"],
+    entry_point = "main.js",
+)
+
+

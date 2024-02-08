@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "commonjs",
+    "declaration": true,
+    "strict": true,
+    "baseUrl": ".",
+    "paths": {
+      "@org/common": ["./common/"]
+    }
+  },
+  "exclude": ["bazel-*"]
+}

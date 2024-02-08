@@ -1,0 +1,16 @@
+bazel_dep(name = "rules_jvm_external", version = "5.3")
+
+# To update maven dependencies, update the lines below and then run:
+# bazel run @unpinned_maven//:pin
+maven = use_extension("@rules_jvm_external//:extensions.bzl", "maven")
+maven.install(
+    artifacts = [
+        "junit:junit:4.13.2",
+    ],
+    lock_file = "//:maven_install.json",
+    repositories = [
+        "https://maven.google.com",
+        "https://repo1.maven.org/maven2",
+    ],
+)
+use_repo(maven, "maven", "unpinned_maven")

@@ -1,0 +1,1 @@
+This is a text example to show a simple genrule for converting a file to Uppercase.

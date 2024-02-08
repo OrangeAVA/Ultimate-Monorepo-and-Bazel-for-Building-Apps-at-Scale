@@ -1,0 +1,14 @@
+load("@rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "greetings",
+    srcs = ["greetings.go"],
+    importpath = "github.com/OrangeAVA/Building-Large-Scale-Apps-with-Monorepo-and-Bazel/chapter-6/bazel_go/common/greetings",
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "greetings_test",
+    srcs = ["greetings_test.go"],
+    embed = [":greetings"],
+)

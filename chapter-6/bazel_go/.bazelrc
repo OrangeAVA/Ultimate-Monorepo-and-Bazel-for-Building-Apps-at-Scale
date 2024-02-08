@@ -1,0 +1,4 @@
+common --enable_bzlmod
+build --spawn_strategy=standalone
+build --strategy=GoLink=standalone
+build --verbose_failures

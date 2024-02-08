@@ -1,0 +1,37 @@
+load("@aspect_bazel_lib//lib:tar.bzl", "tar")
+load("@rules_oci//oci:defs.bzl", "oci_image", "oci_tarball")
+
+java_binary(
+    name = "build",
+    srcs = glob([
+        "src/main/java/**/*.java",
+    ]),
+    main_class = "com.service1.Main",
+    resources = glob(["src/main/resources/*.*"]),
+    visibility = ["//visibility:public"],
+    deps = [
+        "//libraries/lib1:build",
+    ],
+)
+
+tar(
+    name = "build_layer",
+    srcs = [":build_deploy.jar"],
+)
+
+oci_image(
+    name = "build_oci_image",
+    base = "@distroless_java",
+    entrypoint = [
+        "java",
+        "-jar",
+        "services/service1/build_deploy.jar",
+    ],
+    tars = [":build_layer"],
+)
+
+oci_tarball(
+    name = "build_oci_image_tar",
+    image = ":build_oci_image",
+    repo_tags = ["service1:latest"],
+)

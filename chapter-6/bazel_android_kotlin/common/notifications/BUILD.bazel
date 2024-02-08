@@ -1,0 +1,11 @@
+load("@rules_kotlin//kotlin:android.bzl", "kt_android_library")
+
+kt_android_library(
+    name = "notifications",
+    srcs = glob(["src/main/java/**/*.kt"]),
+    deps = [
+        "//app:res",
+        "@maven//:androidx_lifecycle_lifecycle_extensions"
+    ],
+    visibility = ["//app:__subpackages__"],
+)
