@@ -1,0 +1,28 @@
+{
+  "cSpell.words": [
+    "arrowParens",
+    "bazel",
+    "bazelbuild",
+    "bazelisk",
+    "buildifier",
+    "pnpm"
+  ],
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true,
+    ".eclipse": false,
+    ".github": false,
+    ".vscode": false,
+    "app": false,
+    "lib": false,
+    "bazel-bazel_node_typescript": false,
+    "bazel-bin": false,
+    "bazel-out": false,
+    "bazel-testlogs": false,
+    "common": false
+  }
+}

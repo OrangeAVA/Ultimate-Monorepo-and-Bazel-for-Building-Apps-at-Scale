@@ -1,0 +1,28 @@
+bazel_dep(name = "rules_jvm_external", version = "5.3")
+bazel_dep(name = "rules_oci", version = "1.5.1")
+bazel_dep(name = "aspect_bazel_lib", version = "2.1.0")
+
+oci = use_extension("@rules_oci//oci:extensions.bzl", "oci")
+oci.pull(
+    name = "distroless_java",
+    # tag = "latest", # Uncomment to use latest version
+    digest = "sha256:3da8c1021317fa0b0eca2d7bc9f54a1d09517fad07587abda0e1231bff207795",
+    image = "gcr.io/distroless/java17-debian12",
+    platforms = ["linux/amd64", "linux/arm64/v8", "linux/s390x", "linux/ppc64le"],
+)
+use_repo(oci, "distroless_java")
+
+# To update maven dependencies, update the lines below and then run:
+# bazel run @unpinned_maven//:pin
+maven = use_extension("@rules_jvm_external//:extensions.bzl", "maven")
+use_repo(maven, "maven", "unpinned_maven")
+maven.install(
+    artifacts = [
+        "junit:junit:4.13.2",
+    ],
+    lock_file = "//:maven_install.json",
+    repositories = [
+        "https://maven.google.com",
+        "https://repo1.maven.org/maven2",
+    ],
+)

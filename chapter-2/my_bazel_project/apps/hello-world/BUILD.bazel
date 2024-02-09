@@ -1,0 +1,5 @@
+java_binary(
+    name = "hello-world",
+    srcs = ["src/main/java/com/mybazelproject/helloworld/HelloWorld.java"],
+    main_class = "com.mybazelproject.helloworld.HelloWorld",
+)

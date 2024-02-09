@@ -1,0 +1,6 @@
+load("//:my_rule.bzl", "my_rule")
+
+my_rule(
+    name = "hello",
+    content = "Hello, Bazel!",
+)

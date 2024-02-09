@@ -1,0 +1,30 @@
+load("@aspect_rules_js//js:defs.bzl", "js_run_devserver")
+
+SRC_PATTERNS = [
+    "src/**/*",
+]
+
+NPM_DEPS = [
+    "//:node_modules/cypress",
+    "//:node_modules/typescript",
+    "//:node_modules/tslib",
+]
+
+CLI_FILES = [
+    "cypress.config.ts",
+    "//:tsconfig.base",
+    "tsconfig.json",
+]
+
+SRCS = glob(SRC_PATTERNS) + NPM_DEPS + CLI_FILES
+
+js_run_devserver(
+    name = "cypress_dev",
+    args = [
+        "open",
+    ],
+    chdir = package_name(),
+    command = "../../node_modules/.bin/cypress",
+    data = SRCS,
+)
+

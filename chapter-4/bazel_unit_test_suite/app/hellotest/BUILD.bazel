@@ -1,0 +1,24 @@
+load("//tools/rules:junit4_test_suite.bzl", "junit4_test_suite")
+
+java_library(
+    name = "build",
+    srcs = glob(["src/main/java/**/*.java"]),
+    resources = glob(["src/main/resources/*.*"]),
+    visibility = ["//visibility:public"],
+    deps = [
+
+    ],
+)
+
+junit4_test_suite(
+    name = "test",
+    srcs = glob(["src/test/java/**/*.java"]),
+    deps = [
+        ":build",
+    ],
+    runtime_deps = [
+        "@maven//:junit_junit",
+    ],
+    size = "small",
+    resources = glob(["src/test/resources/*.*"]),
+)

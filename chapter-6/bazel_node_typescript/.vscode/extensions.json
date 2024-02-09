@@ -1,0 +1,9 @@
+{
+  "recommendations": [
+    "bazelbuild.vscode-bazel",
+    "ms-azuretools.vscode-docker",
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "gruntfuggly.todo-tree"
+  ]
+}

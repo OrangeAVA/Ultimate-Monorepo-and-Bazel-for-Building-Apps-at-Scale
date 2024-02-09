@@ -1,0 +1,9 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "handlers",
+    srcs = ["handler.go"],
+    importpath = "github.com/OrangeAVA/Building-Large-Scale-Apps-with-Monorepo-and-Bazel/chapter-6/bazel_go/src/handlers",
+    deps = ["//common/greetings"],
+    visibility = ["//visibility:public"],
+)
