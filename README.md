@@ -1,2 +1,2 @@
-# Building-Large-Scale-Apps-with-Monorepo-and-Bazel
-Building Large Scale Apps with Monorepo and Bazel, published by Orange, AVA™
+# Ultimate Scalable Monorepo Apps with Bazel
+# Ultimate Scalable Monorepo Apps with Bazel, published by Orange, AVA™
