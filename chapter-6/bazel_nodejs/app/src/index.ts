@@ -1,10 +1,10 @@
 import express from 'express';
-const { greeting } = require('../common/greeting');
+import { greeting } from '../../common/src/greeting';
 
 const app = express();
 const port = 3000;
 
-app.get('/', (req, res) => {
+app.get('/', (req: express.Request, res: express.Response) => {
   res.send(greeting('Hello Bazel!'));
 });
 

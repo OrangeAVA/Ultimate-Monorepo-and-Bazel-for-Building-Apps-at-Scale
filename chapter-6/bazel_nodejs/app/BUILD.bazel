@@ -15,7 +15,7 @@ ts_project(
     ),
     tsconfig = "//:tsconfig",
     deps = [
-        "//common:common",
+        "//common:common_lib",
         "//:node_modules/@bazel_nodejs/common",
         "//:node_modules/express",
         "//:node_modules/@types/express",

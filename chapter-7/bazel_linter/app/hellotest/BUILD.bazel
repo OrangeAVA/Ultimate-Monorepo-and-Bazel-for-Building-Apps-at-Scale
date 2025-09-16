@@ -1,5 +1,5 @@
-load("//tools/rules:junit4_test_suite.bzl", "junit4_test_suite")
 load("@rules_pmd//pmd:defs.bzl", "pmd_test")
+load("//tools/rules:junit4_test_suite.bzl", "junit4_test_suite")
 
 java_library(
     name = "build",
@@ -7,12 +7,12 @@ java_library(
         "src/main/java/**/*.java",
         "src/test/java/**/*Benchmark.java",
     ]),
+    plugins = [":jmh_annotation_processor"],
     resources = glob(["src/main/resources/*.*"]),
     visibility = ["//visibility:public"],
     deps = [
         "@maven//:org_openjdk_jmh_jmh_core",
     ],
-    plugins = [":jmh_annotation_processor"],
 )
 
 pmd_test(
@@ -24,29 +24,28 @@ pmd_test(
 
 junit4_test_suite(
     name = "test",
-    srcs = glob(["src/test/java/**/*.java"]),
+    size = "small",
+    srcs = glob(["src/test/java/**/*Test.java"]),
+    resources = glob(["src/test/resources/*.*"]),
+    runtime_deps = [
+        "@maven//:junit_junit",
+    ],
     deps = [
         ":build",
         "@maven//:org_openjdk_jmh_jmh_core",
     ],
-    runtime_deps = [
-        "@maven//:junit_junit",
-    ],
-    size = "small",
-    resources = glob(["src/test/resources/*.*"]),
 )
 
 java_binary(
     name = "benchmark",
     main_class = "org.openjdk.jmh.Main",
-    runtime_deps = [":build"],
     plugins = [":jmh_annotation_processor"],
+    runtime_deps = [":build"],
 )
 
 java_plugin(
     name = "jmh_annotation_processor",
-    deps = ["@maven//:org_openjdk_jmh_jmh_generator_annprocess"],
     processor_class = "org.openjdk.jmh.generators.BenchmarkProcessor",
     visibility = ["//visibility:private"],
+    deps = ["@maven//:org_openjdk_jmh_jmh_generator_annprocess"],
 )
-

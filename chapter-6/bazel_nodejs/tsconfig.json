@@ -7,7 +7,8 @@
     "baseUrl": ".",
     "paths": {
       "@bazel_nodejs/common": ["./common/"]
-    }
+    },
+    "esModuleInterop": true
   },
   "exclude": ["bazel-*"]
 }
